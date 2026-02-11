@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Products - Electronics Store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Electronics Store</h1>
+</header>
+
+<section class="hero">
+  <h2>Our Products</h2>
+  <p>Browse and order your favorite electronics</p>
+</section>
+
+<input type="text" id="search" placeholder="Search product..." onkeyup="searchProduct()">
+
+<section id="productList">
+  <!-- Each product now has an Order button -->
+  <div class="product">
+    <h3>Smart Phone</h3>
+    <p>Price: $300</p>
+    <button onclick="addOrder('Smart Phone', 300)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Laptop</h3>
+    <p>Price: $800</p>
+    <button onclick="addOrder('Laptop', 800)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Television</h3>
+    <p>Price: $500</p>
+    <button onclick="addOrder('Television', 500)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Bluetooth Speaker</h3>
+    <p>Price: $120</p>
+    <button onclick="addOrder('Bluetooth Speaker', 120)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Headphones</h3>
+    <p>Price: $60</p>
+    <button onclick="addOrder('Headphones', 60)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Smart Watch</h3>
+    <p>Price: $150</p>
+    <button onclick="addOrder('Smart Watch', 150)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Printer</h3>
+    <p>Price: $200</p>
+    <button onclick="addOrder('Printer', 200)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Router</h3>
+    <p>Price: $90</p>
+    <button onclick="addOrder('Router', 90)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Keyboard</h3>
+    <p>Price: $40</p>
+    <button onclick="addOrder('Keyboard', 40)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Mouse</h3>
+    <p>Price: $25</p>
+    <button onclick="addOrder('Mouse', 25)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Monitor</h3>
+    <p>Price: $180</p>
+    <button onclick="addOrder('Monitor', 180)">Order</button>
+  </div>
+  <div class="product">
+    <h3>External Hard Disk</h3>
+    <p>Price: $120</p>
+    <button onclick="addOrder('External Hard Disk', 120)">Order</button>
+  </div>
+  <div class="product">
+    <h3>USB Flash Drive</h3>
+    <p>Price: $15</p>
+    <button onclick="addOrder('USB Flash Drive', 15)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Digital Camera</h3>
+    <p>Price: $350</p>
+    <button onclick="addOrder('Digital Camera', 350)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Gaming Console</h3>
+    <p>Price: $400</p>
+    <button onclick="addOrder('Gaming Console', 400)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Projector</h3>
+    <p>Price: $500</p>
+    <button onclick="addOrder('Projector', 500)">Order</button>
+  </div>
+  <div class="product">
+    <h3>VR Headset</h3>
+    <p>Price: $250</p>
+    <button onclick="addOrder('VR Headset', 250)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Wireless Charger</h3>
+    <p>Price: $35</p>
+    <button onclick="addOrder('Wireless Charger', 35)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Tablet</h3>
+    <p>Price: $300</p>
+    <button onclick="addOrder('Tablet', 300)">Order</button>
+  </div>
+  <div class="product">
+    <h3>Portable SSD</h3>
+    <p>Price: $150</p>
+    <button onclick="addOrder('Portable SSD', 150)">Order</button>
+  </div>
+</section>
+
+<script>
+function searchProduct() {
+  let input = document.getElementById('search').value.toLowerCase();
+  let products = document.querySelectorAll('#productList .product');
+  products.forEach(function(prod){
+    let name = prod.querySelector('h3').innerText.toLowerCase();
+    prod.style.display = name.includes(input) ? '' : 'none';
+  });
+}
+
+// Frontend Order simulation
+let orders = [];
+
+function addOrder(name, price) {
+  orders.push({name, price});
+  alert(`${name} has been added to your orders!`);
+  console.log('Current Orders:', orders); // see orders in browser console
+}
+</script>
+
+</body>
+</html>

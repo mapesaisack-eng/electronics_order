@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Place Order</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .cart-item { background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 4px; }
+        .success { color: green; background: #d4edda; padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .error { color: red; background: #f8d7da; padding: 10px; border-radius: 4px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Place New Order</h1>
+    
+    <div class="form-group">
+        <label>User ID:</label>
+        <input type="number" id="user_id" placeholder="Enter user ID" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Shipping Address:</label>
+        <textarea id="shipping_address" rows="3" placeholder="Full shipping address" required></textarea>
+    </div>
+    
+    <div class="form-group">
+        <label>Payment Method:</label>
+        <select id="payment_method">
+            <option value="cash">Cash on Delivery</option>
+            <option value="card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="m-pesa">M-Pesa</option>
+        </select>
+    </div>
+    
+    <h3>Shopping Cart</h3>
+    <div id="cart-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+    
+    <div id="total-section" style="margin: 20px 0; font-size: 18px; font-weight: bold;"></div>
+    
+    <button onclick="placeOrder()">Place Order</button>
+    
+    <div id="message"></div>
+    
+    <script>
+        // Sample cart data (in real app, get from localStorage or backend)
+        let cartItems = [
+            { product_id: 1, name: 'Smartphone', price: 500000, quantity: 2 },
+            { product_id: 2, name: 'Headphones', price: 150000, quantity: 1 }
+        ];
+        
+        // Display cart items
+        function displayCart() {
+            const cartContainer = document.getElementById('cart-container');
+            const totalSection = document.getElementById('total-section');
+            let total = 0;
+            
+            cartContainer.innerHTML = '';
+            
+            cartItems.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <strong>${item.name}</strong><br>
+                        Price: $${item.price.toLocaleString()}<br>
+                        Quantity: ${item.quantity}<br>
+                        Subtotal: $${itemTotal.toLocaleString()}
+                    </div>
+                `;
+            });
+            
+            totalSection.innerHTML = `Total Amount: $${total.toLocaleString()}`;
+        }
+        
+        // Place order function
+        function placeOrder() {
+            const user_id = document.getElementById('user_id').value;
+            const shipping_address = document.getElementById('shipping_address').value;
+            const payment_method = document.getElementById('payment_method').value;
+            
+            if (!user_id || !shipping_address) {
+                showMessage('Please fill all required fields!', 'error');
+                return;
+            }
+            
+            const orderData = {
+                user_id: user_id,
+                shipping_address: shipping_address,
+                payment_method: payment_method,
+                cart_items: cartItems
+            };
+            
+            fetch('place_order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
